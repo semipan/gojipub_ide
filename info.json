@@ -1,0 +1,14 @@
+{
+    "id": "ide",
+    "name": "主题模板编辑器",
+    "version": "1.0",
+    "thumb": "/static/plugins/ide/thumb.jpg",
+    "description": "可以对当前的主题模板中的资源进行编辑。比如:volt模板，js,css等。实现了在线编码，方便对模板的修改。不建议在线进行大面积编辑，如果有这个需求可以在自己的开发机上进行。",
+    "authors": [
+        {
+            "name": "江边望海",
+            "email": "jiangbianwanghai@163.com",
+            "homepage": "http://www.jiangbianwanghai.com"
+        }
+    ]
+}
