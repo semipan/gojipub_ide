@@ -21,7 +21,11 @@ class idePlugin extends Core\Library\Plugins
      */
     public function index()
     {
-        $this->view->pagetitle = '资源管理器';
+        $this->view->pagetitle = '在线编辑模板IDE';
+        //读取站点的配置
+        $config = file_get_contents(CORE_PATH . "/config/site.json");
+        $config = json_decode($config, true);
+        $this->view->host = $config['host'];
         $rows = Core\Library\Common::getDirContent(BASE_PATH . "/public/upload/");
         $this->view->rows = $rows;
         $content = file_get_contents($this->themeDir . 'template/index/index.volt');
@@ -44,8 +48,8 @@ class idePlugin extends Core\Library\Plugins
         $rows = Core\Library\Common::getDirContent($this->themeDir . $path);
         if ($rows) {
             if ($path) {
-                $arr = array_values(array_filter(explode('/',$path)));
-                if (count($arr)>1) {
+                $arr = array_values(array_filter(explode('/', $path)));
+                if (count($arr) > 1) {
                     isset($this->themeConf['structure'][$arr[0]]['structure'][$arr[1]]['structure']) && $structure = $this->themeConf['structure'][$arr[0]]['structure'][$arr[1]]['structure'];
                 } else {
                     isset($this->themeConf['structure'][$arr[0]]['structure']) && $structure = $this->themeConf['structure'][$arr[0]]['structure'];
@@ -60,8 +64,8 @@ class idePlugin extends Core\Library\Plugins
                 if ($v['type'] == 'FILE') {
                     $rows[$k]['ext'] = substr($v['name'], strrpos($v['name'], '.') + 1); //获取文件扩展名
                 }
-                $rows[$k]['path'] = $path.'/'.$v['name'];
-                $rows[$k]['md5'] = md5($path.'/'.$v['name']);
+                $rows[$k]['path'] = $path . '/' . $v['name'];
+                $rows[$k]['md5'] = md5($path . '/' . $v['name']);
                 $rows[$k]['alias'] = '';
                 if (isset($structure[$v['name']]['alias'])) {
                     $rows[$k]['alias'] = $structure[$v['name']]['alias'];

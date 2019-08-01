@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>模板编辑</title>
+  <title>{{ pagetitle }}</title>
   <link href="/static/plugins/ide/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
   <link href="/static/plugins/ide/css/jquery-ui.css" rel="stylesheet" type="text/css">
   <script src="/static/plugins/ide/js/jquery-1.12.4.min.js"></script>
@@ -139,7 +139,8 @@
       ;
       color: blue;
     }
-    .ui-widget-content{
+
+    .ui-widget-content {
       height: 99%;
       overflow-y: hidden;
     }
@@ -163,8 +164,10 @@
             </ul>
             <div class="content" id="tabs-0-1" role="tabpanel" style=" height: 100%;"><textarea class="code" name="code"
                 id="index" data-id="d553082a3e451063f71e307981990dd8">{{ content }}</textarea>
-              <div style="position:absolute;z-index:9999;right:40px;top:60px;width:60px;border:1px solid #aaa;padding:5px; background:#ccc;"><a
-                  href="javascript:;" data-id="d553082a3e451063f71e307981990dd8" data-path="/template/index/index.volt" class="save">保存更改</a></div>
+              <div
+                style="position:absolute;z-index:9999;right:40px;top:60px;width:60px;border:1px solid #aaa;padding:5px; background:#ccc;">
+                <a href="javascript:;" data-id="d553082a3e451063f71e307981990dd8" data-path="/template/index/index.volt"
+                  class="save">保存更改</a></div>
             </div>
           </div>
         </div>
@@ -194,7 +197,7 @@
       $.ajax({
         type: "get",
         dataType: "json",
-        url: "/console/plugins/ide?action=dir",
+        url: "/console/plugins-app/ide?action=dir",
         success: function (result) {
           if (result.code == 0) {
             var html = '';
@@ -218,7 +221,7 @@
           alert("异常！");
         }
       });
-    
+
       /**
        * 目录展开关闭
        */
@@ -234,7 +237,7 @@
           $.ajax({
             type: "get",
             dataType: "json",
-            url: "/console/plugins/ide?action=dir&path=" + $(this).attr("data-folder"),
+            url: "/console/plugins-app/ide?action=dir&path=" + $(this).attr("data-folder"),
             success: function (result) {
               if (result.code == 0) {
                 var html = '';
@@ -254,7 +257,7 @@
                     if (result.data[key]['ext'] == 'volt' || result.data[key]['ext'] == 'js' || result.data[key]['ext'] == 'css') {
                       html += '<div>' + tabb + '<i class="fa fa-file-o" aria-hidden="true"></i> <a data-id="' + result.data[key]['md5'] + '" class="addRandomTab" data-name="' + result.data[key]['path'] + '" href="javascript:;">' + result.data[key]['name'] + alias + '</a></div>';
                     } else {
-                      html += '<div>' + tabb + '<i class="fa fa-file-o" aria-hidden="true"></i> <a href="http://mslog.lqm.cn/theme/default/' + result.data[key]['path'] + '" target="_blank">' + result.data[key]['name'] + alias + '</a></div>';
+                      html += '<div>' + tabb + '<i class="fa fa-file-o" aria-hidden="true"></i> <a href="' + host + '/theme/default/' + result.data[key]['path'] + '" target="_blank">' + result.data[key]['name'] + alias + '</a></div>';
                     }
                   }
                 }
@@ -293,7 +296,7 @@
         $.ajax({
           type: "get",
           dataType: "json",
-          url: "/console/plugins/ide?action=file&path=" + $(this).attr('data-name'),
+          url: "/console/plugins-app/ide?action=file&path=" + $(this).attr('data-name'),
           success: function (result) {
             if (result.code == 0) {
               editor[$(this).attr('data-id')].setValue(result.data);
@@ -313,7 +316,7 @@
         $.ajax({
           type: "POST",
           dataType: "json",
-          url: "/console/plugins/ide?action=save",
+          url: "/console/plugins-app/ide?action=save",
           data: { content: editor[$(this).attr('data-id')].getValue(), path: $(this).attr('data-path') },
           success: function (result) {
             if (result.code == 0) {
