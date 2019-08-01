@@ -187,6 +187,7 @@
      * 默认打开
      */
     var editor = [];
+    var host = '{{ host }}';
     editor[$("#index").attr('data-id')] = CodeMirror.fromTextArea(document.getElementById("index"), {
       mode: "htmlmixed",
       lineNumbers: true,
